@@ -35,7 +35,7 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
         pool: Optional[Union[EstimatorPool, EstimatorPoolCV]] = None,
     ) -> BaseEstimator:
         if (type(y) is np.ndarray and len(y.shape) != 1) or (
-            type(y) is pd.Series and y.shape[1] != 1
+            type(y) is pd.Series and len(y.shape) != 1
         ):
             raise ValueError("The target is not a vector")
         # some of the MetaPipeline steps requires information on the data, therefore we have to initialize it here
