@@ -8,6 +8,8 @@ setup(
         "TinyAutoML.Preprocessing",
         "TinyAutoML.constants",
         "TinyAutoML.Models",
+        "TinyAutoML.Models.MetaModels",
+        "TinyAutoML.Models.EstmatorPools",
         "TinyAutoML.support",
     ],
     url="https://github.com/g0bel1n/TinyAutoML/tree/pooling-opt",
