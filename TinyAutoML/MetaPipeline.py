@@ -10,6 +10,7 @@ from sklearn.pipeline import Pipeline
 
 from .builders import buildMetaPipeline
 from .Models import EstimatorPool, EstimatorPoolCV, MetaModel
+from .support.MyTools import ndarrayToDataFrame
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -39,7 +40,7 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
         ):
             raise ValueError("The target is not a vector")
         if type(X) is np.ndarray:
-            X = pd.DataFrame(X).convert_dtypes()
+            X = ndarrayToDataFrame(X)
         # some of the MetaPipeline steps requires information on the data, therefore we have to initialize it here
         self.estimator = (
             self.model
@@ -72,26 +73,33 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
     def predict(self, X: Union[pd.DataFrame, np.ndarray]):
         if self.estimator is None:
             raise ValueError("The estimator has not been fitted beforehand")
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         return self.estimator.predict(X)
 
     def predict_proba(self, X: Union[pd.DataFrame, np.ndarray]):
         if self.estimator is None:
             raise ValueError("The estimator has not been fitted beforehand")
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         return self.estimator.predict_proba(X)
 
     def transform(self, X: Union[pd.DataFrame, np.ndarray], y=None):
         if self.estimator is None:
             raise ValueError("The estimator has not been fitted beforehand")
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         return self.estimator.transform(X)
 
     def get_scores(
         self, X: Union[pd.DataFrame, np.ndarray], y: Union[pd.Series, np.ndarray]
     ):
         if (type(y) is np.ndarray and len(y.shape) != 1) or (
-            type(y) is pd.Series and y.shape[1] != 1
+            type(y) is pd.Series and len(y.shape) != 1
         ):
             raise ValueError("The target is not a vector")
-
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         if type(self.estimator) is MetaModel:
             return self.estimator.estimatorPool.get_scores(
                 self.estimator.transform(X), y
@@ -108,10 +116,11 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
         if self.estimator is None:
             raise ValueError("The estimator has not been fitted beforehand")
         if (type(y) is np.ndarray and len(y.shape) != 1) or (
-            type(y) is pd.Series and y.shape[1] != 1
+            type(y) is pd.Series and len(y.shape) != 1
         ):
             raise ValueError("The target is not a vector")
-
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         y_pred = self.estimator.predict(X)
         print(classification_report(y, y_pred))
 
@@ -120,10 +129,11 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
         if self.estimator is None:
             raise ValueError("The estimator has not been fitted beforehand")
         if (type(y) is np.ndarray and len(y.shape) != 1) or (
-            type(y) is pd.Series and y.shape[1] != 1
+            type(y) is pd.Series and len(y.shape) != 1
         ):
             raise ValueError("The target is not a vector")
-
+        if type(X) is np.ndarray:
+            X = ndarrayToDataFrame(X)
         ns_probs = [0 for _ in range(len(y))]
 
         # predict probabilities

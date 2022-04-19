@@ -26,6 +26,8 @@ def extract_score_params(cv_results: dict, n_splits: int, k_last_splits=5) -> tu
     params = cv_results['params'][idx_best_config]
     return score, params
 
+def ndarrayToDataFrame(X: np.ndarray) -> pd.DataFrame:
+    return pd.DataFrame(X).convert_dtypes()
 
 def isIndexedByTime(X: pd.DataFrame) -> bool:
     return X.index.dtype in [datetime, 'datetime64[ns]']
