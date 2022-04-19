@@ -38,6 +38,8 @@ class MetaPipeline(BaseEstimator, ClassifierMixin):
             type(y) is pd.Series and len(y.shape) != 1
         ):
             raise ValueError("The target is not a vector")
+        if type(X) is np.ndarray:
+            X = pd.DataFrame(X).convert_dtypes()
         # some of the MetaPipeline steps requires information on the data, therefore we have to initialize it here
         self.estimator = (
             self.model
