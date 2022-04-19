@@ -1,17 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="TinyAutoML",
-    version="0.2.3.3",
-    packages=[
-        "TinyAutoML",
-        "TinyAutoML.Preprocessing",
-        "TinyAutoML.constants",
-        "TinyAutoML.Models",
-        "TinyAutoML.Models.MetaModels",
-        "TinyAutoML.Models.EstmatorPools",
-        "TinyAutoML.support",
-    ],
+    version="0.2.3.4",
+    packages= find_packages(exclude=["test"]),
     url="https://github.com/g0bel1n/TinyAutoML/tree/pooling-opt",
     license="MIT",
     author="g0bel1n",
