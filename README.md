@@ -9,8 +9,8 @@ Only works for binary classification for now.
 
 ``` python
 import pandas as pd
-from TinyAutoML as MetaPipelineCV
-from TinyAutoML.Models import DemocraticModelCV
+from TinyAutoML import MetaPipeline
+from TinyAutoML.Models import DemocraticModel
 from sklearn.datasets import load_breast_cancer
 
 ds = load_breast_cancer()
@@ -22,8 +22,8 @@ cut = int(len(y) * 0.8)
 X_train, X_test = X[:cut], X[cut:]
 y_train, y_test = y[:cut], y[cut:]
 
-model = DemocraticModelCV(parameterTuning=True, metrics='accuracy')
-mp = MetaPipelineCV(model=model)
+model = DemocraticModel(parameterTuning=True, metrics='accuracy')
+mp = MetaPipeline(model=model)
 mp.fit(X_train, y_train)
 print(mp.classification_report(X_test, y_test))
 
