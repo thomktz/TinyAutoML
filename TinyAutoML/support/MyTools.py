@@ -32,7 +32,7 @@ def isIndexedByTime(X: pd.DataFrame) -> bool:
 
 
 def getAdaptedCrossVal(X: pd.DataFrame, nSplits: int) -> Union[TimeSeriesSplit, StratifiedKFold]:
-    if isIndexedByTime(X):
+    if type(X) is pd.DataFrame and isIndexedByTime(X):
         # Pour des données temporelles, on préféra découper linéairement dans le temps
         return TimeSeriesSplit(n_splits=nSplits)
 
