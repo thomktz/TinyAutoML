@@ -1,5 +1,3 @@
-import os
-print(os.getcwd())
 from .MetaModels.DemocraticModel import DemocraticModel
 from .MetaModels.BestModel import BestModel
 from .MetaModels.OneRulerForAll import OneRulerForAll
