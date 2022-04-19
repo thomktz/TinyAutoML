@@ -24,10 +24,6 @@ def buildColumnTransformer(X: Union[pd.DataFrame, np.ndarray]) -> ColumnTransfor
         numerical_ix = X.select_dtypes(include=["int64", "float64"]).columns
         categorical_ix = X.select_dtypes(include=["object", "bool"]).columns
 
-    elif type(X) is np.ndarray:
-        numerical_ix = X.dtype(include=["int64", "float64"]).columns
-        categorical_ix = X.dtype(include=["object", "bool"]).columns
-
     else:
         raise ValueError("X is not valid")
 
