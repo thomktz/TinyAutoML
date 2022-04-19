@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="TinyAutoML",
-    version="0.2.3.4",
+    version="0.2.3.3-test",
     packages= find_packages(exclude=["test"]),
     url="https://github.com/g0bel1n/TinyAutoML/tree/pooling-opt",
     license="MIT",
